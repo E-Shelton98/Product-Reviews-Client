@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react'
+import DisplayProducts from './components/DisplayProducts'
 import './App.css';
 
 function App() {
-  
+  const [productData, setProductData] = useState([])
+
+
   useEffect(() => {
     const makeAPICall = async () => {
       try {
@@ -10,7 +13,7 @@ function App() {
 					'https://product-reviews-backend.herokuapp.com/products'
 				);
         const json = await res.json()
-        console.log(json)
+        setProductData(json)
       } catch (err) {
         console.error(err)
       }
@@ -18,9 +21,14 @@ function App() {
     makeAPICall()
   }, [])
   
+  const handleClick = () => {
+    
+  }
+  
+  console.log(productData)
   return (
     <div className="App">
-      <h1>Hello World!</h1>
+      <DisplayProducts products={productData} handleClickFromApp={handleClick}/>
     </div>
   );
 }
